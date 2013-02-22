@@ -49,6 +49,7 @@ function _custom_header_background_just_in_time_taxonomy_background_override() {
 
 		if ( is_admin() ) {
 			require_once( plugin_dir_path(__FILE__) . 'includes/background-class.php' );
+			require_once( plugin_dir_path(__FILE__) . 'includes/mods.php' );
 			$custom_background = new Tax_Custom_Background( $args[0]['admin-head-callback'], $args[0]['admin-preview-callback'] );
 		}
 	}

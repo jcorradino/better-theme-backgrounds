@@ -186,7 +186,45 @@ class Tax_Custom_Background {
 	.taxonomy-selector-rail {
 		float: left;
 		width: 15%;
-		max-width: 100px;
+		max-width: 120px;
+		font-size: 14px;
+	}
+	.taxonomy-selector-rail li {
+		padding: 3px;
+		cursor: pointer;
+	}
+	.taxonomy-selector-rail li:hover {
+		background: #DDD;
+		color: #000;
+		position: relative;
+	}
+	.taxonomy-selector-rail li.active, .taxonomy-selector-rail li.active:hover {
+		background: #777;
+		background-image: -webkit-gradient(linear,left bottom,left top,from(#6d6d6d),to(#808080));
+		background-image: -webkit-linear-gradient(bottom,#6d6d6d,#808080);
+		background-image: -moz-linear-gradient(bottom,#6d6d6d,#808080);
+		background-image: -o-linear-gradient(bottom,#6d6d6d,#808080);
+		background-image: linear-gradient(to top,#6d6d6d,#808080);
+		color: #fff;
+		position: relative;
+	}
+	.taxonomy-selector-rail li.active .selected-arrow {
+		background: #777;
+		background-image: -webkit-gradient(linear,right bottom,left top,from(#6d6d6d),to(#808080));
+		background-image: -webkit-linear-gradient(bottom right,#6d6d6d,#808080);
+		background-image: -moz-linear-gradient(bottom right,#6d6d6d,#808080);
+		background-image: -o-linear-gradient(bottom right,#6d6d6d,#808080);
+		background-image: linear-gradient(to top left,#6d6d6d,#808080);
+		position: absolute;
+		top: 5px;
+		right: -6px;
+		width: 11px;
+		height: 11px;
+		-moz-transform: matrix(-0.6,1,0.6,1,0,0);
+		-webkit-transform: matrix(-0.6,1,0.6,1,0,0);
+		-o-transform: matrix(-0.6,1,0.6,1,0,0);
+		-ms-transform: matrix(-0.6,1,0.6,1,0,0);
+		transform: matrix(-0.6,1,0.6,1,0,0);
 	}
 	.background-selector {
 		float: left;
@@ -195,27 +233,25 @@ class Tax_Custom_Background {
 		padding-left: 25px;
 	}
 </style>
+<script>
+	
+</script>
 <div class="wrap" id="custom-background">
 	<?php screen_icon(); ?>
 	<h2><?php _e('Custom Background'); ?></h2>
 	<div class="taxonomy-selector-rail">
-		<ul><li termID="0" class="active">All</li><?php 
+		<ul><li termID="0" class="active">All<div class="selected-arrow"></div></li><?php 
 			$terms = get_terms("category", array(
 				"hide_empty" => 0, 
 				"parent" => 0
 			));
 			foreach($terms as $term) {
-				echo "<li termID='{$term->term_id}'>{$term->name}</li>";
+				echo "<li termID='{$term->term_id}'>{$term->name}<div class='selected-arrow'></div></li>";
 			}
 		?></ul>
 	</div>
 	<div class="background-selector">
-		<?php if ( !empty($this->updated) ) { ?>
-		<div id="message" class="updated">
-		<p><?php printf( __( 'Background updated. <a href="%s">Visit your site</a> to see how it looks.' ), home_url( '/' ) ); ?></p>
-		</div>
-		<?php }
-
+		<?php
 			if ( $this->admin_image_div_callback ) {
 				call_user_func($this->admin_image_div_callback);
 			} else {
